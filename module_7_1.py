@@ -17,19 +17,16 @@ class Shop:
         self.__file_name = 'products.txt'
 
     def add(self, *products):
-        with open(self.__file_name, 'r', encoding='utf-8') as file:
-            list_ = file.read()
-            if list_:
-                checker = list_
-            else:
-                checker = []
+        checker = []
+        list_ = self.get_products()
+        if list_:
+            checker = list_
+
         with open(self.__file_name, 'a', encoding='utf-8') as file:
 
             for product in products:
-                # print(product.name)
                 if product.name in checker:
                     print(f'Продукт {product.name} уже есть в магазине')
-                    # file.write(f'Продукт {product.name} уже есть в магазине\n')
                 else:
                     file.write(str(product) + '\n')
                     checker.append(product.name)
