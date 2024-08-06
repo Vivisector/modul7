@@ -4,10 +4,13 @@ class WordsFinder:
 
     def get_all_words(self):
         all_words = {}
+        puncts =  [',', '.', '=', '!', '?', ';', ':', ' - ']
         for f in self.file_names:
             with open(f, 'r', encoding='utf-8') as file:
-                words = file.read().split()
-                all_words[f] = words
+                words = file.read().lower() #.split()
+                for p in puncts:
+                    words = words.replace(p, '')
+                all_words[f] = words.split()
         self.toResult(all_words)
         return all_words
 
@@ -20,7 +23,7 @@ class WordsFinder:
                 pos = words.index(word)  # Ищем первое вхождение слова в списке
             except ValueError:
                 pos = -1  # Если слово не найдено, устанавливаем -1
-            find_vocab[f] = pos+1 # чтобы нумероват ьне с нуля
+            find_vocab[f] = pos+1 # чтобы нумеровать позицию не с нуля
         self.toResult(find_vocab)
         return find_vocab
 
